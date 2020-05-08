@@ -32,7 +32,6 @@ public class TemplateController {
         template.setTemplate(templateRepresentation.getTemplate());
         template = templateService.createTemplate(template);
 
-        List<Attribute> attributeList = new ArrayList<>();
         if(templateRepresentation.getAttributes()!=null){
             for(AttributeRepresentation attributeRepresentation:templateRepresentation.getAttributes()){
                 Attribute attribute = new Attribute();
@@ -51,11 +50,23 @@ public class TemplateController {
         return new ResponseEntity<>(templateService.getTemplateById(Long.valueOf(id)), HttpStatus.OK);
     }
 
+    @PatchMapping("/{id}")
+    public void patchTemplate(@PathVariable("id") String id,
+                              @RequestBody TemplateRepresentation templateRepresentation) {
+        Template template = templateService.getTemplateById(Long.valueOf(id));
+
+        template.setName(templateRepresentation.getName());
+        template.setRequestor(templateRepresentation.getRequestor());
+        template.setTemplate(templateRepresentation.getTemplate());
+
+        templateService.updateTemplate(template);
+    }
+
     @GetMapping("/{template_id}/{position}")
-    public ResponseEntity<Long> getTemplate(@PathVariable("template_id") String template_id,
+    public ResponseEntity<Long> getTemplate(@PathVariable("template_id") String templateId,
                                             @PathVariable("position") String position) {
         Attribute attribute = attributeService.
-                getAttributesbyTemplateIdAndPosition(Long.valueOf(template_id), Integer.valueOf(position));
+                getAttributesbyTemplateIdAndPosition(Long.valueOf(templateId), Integer.valueOf(position));
         return new ResponseEntity<>(attribute.getId(), HttpStatus.OK);
     }
 

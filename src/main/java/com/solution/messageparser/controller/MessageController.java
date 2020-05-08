@@ -13,10 +13,7 @@ import com.solution.messageparser.service.TemplateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/messages")
@@ -46,12 +43,14 @@ public class MessageController {
         message.setRequestor(templateId);
         message.setMessage(messageText);
         message.setDate(new Date());
+//ToDo: save if parsing is ok
         message = messageRepository.save(message);
 
         Template template = templateService.getTemplateById(Long.valueOf(templateId));
         List<Attribute> attributes = attributeService.getAttributesbyTemplateId(Long.valueOf(templateId));
         List<String> values = parser.parse(template.getTemplate(), messageText);
-        template.setAttributes(attributes);
+//ToDo: check
+        //        template.setAttributes(attributes);
 
         Collections.sort(attributes, new Comparator<Attribute>() {
             @Override
@@ -72,8 +71,16 @@ public class MessageController {
     }
 
     @GetMapping("")
-    public List<Value> getValues(@RequestParam("templateId") String templateId, @RequestParam("attrId") String attrId){
-        return valueRepository.findValueByTemplateIdAndAndAttrId(Long.valueOf(templateId), Long.valueOf(attrId));
+    public List<String> getValues(@RequestParam("templateId") String templateId,
+                                  @RequestParam("attrId") String attrId){
+        List<Value> values = valueRepository.
+                findValueByTemplateIdAndAndAttrId(Long.valueOf(templateId), Long.valueOf(attrId));
+        List<String> result = new ArrayList<>();
+//ToDo: check names
+        for(Value value:values){
+            result.add(value.getValue());
+        }
+        return result;
     }
 
 }

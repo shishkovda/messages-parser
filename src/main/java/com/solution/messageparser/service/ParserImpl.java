@@ -20,11 +20,9 @@ public class ParserImpl implements Parser {
         List<String> templateWords = new ArrayList<>();
         int prevIndex = 0;
         for(Integer i:attributeIndexes){
-            System.out.println(template.substring(prevIndex, i));
             templateWords.add(template.substring(prevIndex, i));
             prevIndex = i+11;
         }
-        System.out.println(template.substring(prevIndex));
         templateWords.add(template.substring(prevIndex));
 
         List<String> attributeValues = new ArrayList<>();
@@ -40,7 +38,6 @@ public class ParserImpl implements Parser {
             if(!substr.equals("")) {
                 attributeValues.add(substr);
             }
-            System.out.println(substr);
             idx1 = idx2+templateWord.length();
         }
 

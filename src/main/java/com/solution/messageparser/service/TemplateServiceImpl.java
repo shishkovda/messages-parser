@@ -22,6 +22,11 @@ public class TemplateServiceImpl implements TemplateService {
     }
 
     @Override
+    public void updateTemplate(Template template) {
+        templateRepository.save(template);
+    }
+
+    @Override
     public Template getTemplateByRequestor(String requestor) {
         Template template = templateRepository.findByRequestor(requestor);
         List<Attribute> attributes = attributeRepository.findAttributesByTemplateId(template.getId());

@@ -51,4 +51,13 @@ public class Message {
     @Column
     private Date date;
 
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", requestor='" + requestor + '\'' +
+                ", message='" + message + '\'' +
+                ", date=" + date +
+                '}';
+    }
 }

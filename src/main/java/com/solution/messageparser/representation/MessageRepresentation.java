@@ -19,4 +19,12 @@ public class MessageRepresentation {
     public void setMessage(String message) {
         this.message = message;
     }
+
+    @Override
+    public String toString() {
+        return "MessageRepresentation{" +
+                "templateId='" + templateId + '\'' +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }

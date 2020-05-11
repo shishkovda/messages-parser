@@ -54,4 +54,15 @@ public class Value {
     public void setValue(String value) {
         this.value = value;
     }
+
+    @Override
+    public String toString() {
+        return "Value{" +
+                "id=" + id +
+                ", templateId=" + templateId +
+                ", attrId=" + attrId +
+                ", value='" + value + '\'' +
+                ", messageId=" + messageId +
+                '}';
+    }
 }

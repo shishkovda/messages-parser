@@ -67,4 +67,15 @@ public class Template {
     public void setName(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Template{" +
+                "id=" + id +
+                ", requestor='" + requestor + '\'' +
+                ", template='" + template + '\'' +
+                ", attributes=" + attributes +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

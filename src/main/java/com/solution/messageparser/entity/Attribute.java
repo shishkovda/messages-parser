@@ -50,4 +50,14 @@ public class Attribute {
 
     @Column
     private Long templateId;
+
+    @Override
+    public String toString() {
+        return "Attribute{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", position=" + position +
+                ", templateId=" + templateId +
+                '}';
+    }
 }

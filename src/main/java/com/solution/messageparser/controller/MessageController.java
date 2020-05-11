@@ -10,6 +10,8 @@ import com.solution.messageparser.representation.MessageRepresentation;
 import com.solution.messageparser.service.AttributeService;
 import com.solution.messageparser.service.Parser;
 import com.solution.messageparser.service.TemplateService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,7 @@ import java.util.*;
 @RestController
 @RequestMapping("/api/messages")
 public class MessageController {
+    Logger logger = LoggerFactory.getLogger(MessageController.class);
 
     @Autowired
     TemplateService templateService;
@@ -36,6 +39,8 @@ public class MessageController {
 
     @PostMapping("")
     public void processMessage(@RequestBody MessageRepresentation messageRepresentation){
+        logger.info("processMessage(): messageRepresentation = " + messageRepresentation);
+
         String templateId = messageRepresentation.getTemplateId();
         String messageText = messageRepresentation.getMessage();
 
@@ -45,10 +50,17 @@ public class MessageController {
         message.setDate(new Date());
 //ToDo: save if parsing is ok
         message = messageRepository.save(message);
+        logger.info("processMessage(): message = " + message);
 
         Template template = templateService.getTemplateById(Long.valueOf(templateId));
+        logger.info("processMessage(): template = " + template);
+
         List<Attribute> attributes = attributeService.getAttributesbyTemplateId(Long.valueOf(templateId));
+        logger.info("processMessage(): attributes = " + attributes);
+
         List<String> values = parser.parse(template.getTemplate(), messageText);
+        logger.info("processMessage(): values = " + values);
+
 //ToDo: check
         //        template.setAttributes(attributes);
 
@@ -73,6 +85,9 @@ public class MessageController {
     @GetMapping("")
     public List<String> getValues(@RequestParam("templateId") String templateId,
                                   @RequestParam("attrId") String attrId){
+        logger.info("getValues(): templateId = " + templateId);
+        logger.info("getValues(): attrId = " + attrId);
+
         List<Value> values = valueRepository.
                 findValueByTemplateIdAndAndAttrId(Long.valueOf(templateId), Long.valueOf(attrId));
         List<String> result = new ArrayList<>();

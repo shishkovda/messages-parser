@@ -16,6 +16,7 @@ public class ParserImpl implements Parser {
     public List<String> parse(String template, String message) {
         logger.info("parse(): template = " + template);
         logger.info("parse(): message = " + message);
+        message = message.replaceAll("\"", "");
 
         Pattern pattern = Pattern.compile("\\{attribute}");
         Matcher matcher = pattern.matcher(template);

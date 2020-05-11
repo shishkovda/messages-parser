@@ -34,7 +34,7 @@ public class TemplateController {
         Template template = new Template();
         template.setName(templateRepresentation.getName());
         template.setRequestor(templateRepresentation.getRequestor());
-        template.setTemplate(templateRepresentation.getTemplate());
+        template.setTemplate(templateRepresentation.getTemplate().replaceAll("\"", ""));
         template = templateService.createTemplate(template);
 
         if(templateRepresentation.getAttributes()!=null){

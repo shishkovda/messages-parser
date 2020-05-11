@@ -1,13 +1,22 @@
 package com.solution.messageparser.service;
 
+import com.solution.messageparser.controller.MessageController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParserImpl implements Parser {
+    Logger logger = LoggerFactory.getLogger(ParserImpl.class);
+
     @Override
     public List<String> parse(String template, String message) {
+        logger.info("parse(): template = " + template);
+        logger.info("parse(): message = " + message);
+
         Pattern pattern = Pattern.compile("\\{attribute}");
         Matcher matcher = pattern.matcher(template);
 

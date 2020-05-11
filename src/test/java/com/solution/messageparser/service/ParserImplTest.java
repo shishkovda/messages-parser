@@ -35,4 +35,17 @@ class ParserImplTest {
 
         assertEquals(expectedResult, actualResult);
     }
+
+    @Test
+    void parse3() {
+        String template = "cnojdncldnl {attribute} {attribute}";
+        String message = "cnojdncldnl Krasnov 3";
+
+        List<String> expectedResult = new ArrayList<>();
+        expectedResult.add("Krasnov");
+        expectedResult.add("3");
+        List<String> actualResult = parser.parse(template, message);
+
+        assertEquals(expectedResult, actualResult);
+    }
 }

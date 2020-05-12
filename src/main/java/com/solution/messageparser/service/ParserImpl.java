@@ -35,6 +35,7 @@ public class ParserImpl implements Parser {
         }
         templateWords.add(template.substring(prevIndex));
 
+        templateWords.set(0, "Сообщение: ");
         List<String> attributeValues = new ArrayList<>();
         int idx1 = 0;
         for(String templateWord:templateWords){
@@ -50,6 +51,7 @@ public class ParserImpl implements Parser {
             }
             idx1 = idx2+templateWord.length();
         }
+        attributeValues.remove(0);
 
         return attributeValues;
     }

@@ -39,10 +39,10 @@ class ParserImplTest {
     @Test
     void parse3() {
         String template = "VISA8872 11.05.20 Зачисление 300 руб. от отправителя ДМИТРИЙ Ш. Сообщение: {attribute} {attribute}";
-        String message = "VISA8872 12.05.20 Зачисление 300 руб. от отправителя ДМИТРИЙ Ш. Сообщение: Дмитрий Ш. 2";
+        String message = "VISA8872 12.05.20 Зачисление 300 руб. от отправителя ДМИТРИЙ Ш. Сообщение: Шишков 2";
 
         List<String> expectedResult = new ArrayList<>();
-        expectedResult.add("Дмитрий Ш.");
+        expectedResult.add("Шишков");
         expectedResult.add("2");
         List<String> actualResult = parser.parse(template, message);
 
